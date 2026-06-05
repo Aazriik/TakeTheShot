@@ -102,7 +102,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Camera"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""56f7531d-d51d-46c2-bc68-ad9154c0b4af"",
                     ""expectedControlType"": ""Vector2"",
@@ -114,6 +114,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Drone Mode"",
                     ""type"": ""Button"",
                     ""id"": ""18e80d49-a82b-4185-9dbc-84f8a28a2106"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""97e2d44f-dc29-4b16-997f-12ef85352d54"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -183,7 +192,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Camera"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -197,6 +206,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Drone Mode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99b11025-e881-4e6f-b141-b867e0871869"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -208,6 +228,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Power"",
                     ""type"": ""Value"",
                     ""id"": ""6b1569ba-ed0b-4078-976d-6c1e6548efb1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Tilt"",
+                    ""type"": ""Value"",
+                    ""id"": ""26157fe3-fbe2-4f8e-91fa-ad859a0898ec"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -262,6 +291,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Camera Mode"",
                     ""type"": ""Button"",
                     ""id"": ""e60643c9-3b2b-46f9-beae-5befe1858ce6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""8572c7a2-d72e-4517-b425-0ecebe68e265"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -389,6 +427,72 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Camera Mode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""05d645cd-7693-4fd9-99a0-f5bd0f62141c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""0e0d9857-bc1e-484f-8c50-b507d8201656"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""44d0fdc1-4ea7-4c6a-97e5-1000944cca03"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""0b81a2cf-bb45-4a8c-b816-6b0d21ba17a2"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7126c457-472b-4189-ba6e-d2a122c7aa5e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65e8f394-a7f6-4ca8-95f0-bb033e8f4b2f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -445,6 +549,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Drone Mode"",
                     ""type"": ""Button"",
                     ""id"": ""31bb6c47-9ba6-44a2-8913-5fade43080a3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""8051cbce-181b-420c-96df-b9ff6d560e71"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -517,6 +630,45 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Drone Mode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1851983-9afc-4d60-8007-51ae7fd8e7eb"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""fbf9435a-7a4a-4bbf-a913-93b439cd2210"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee42212f-fbc1-42fe-b1d5-082c510cce1b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6dcb1ed0-db20-4335-9c34-ab3b4bc6adfb"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -526,17 +678,20 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // PlayerMode
         m_PlayerMode = asset.FindActionMap("PlayerMode", throwIfNotFound: true);
         m_PlayerMode_Move = m_PlayerMode.FindAction("Move", throwIfNotFound: true);
-        m_PlayerMode_Camera = m_PlayerMode.FindAction("Camera", throwIfNotFound: true);
+        m_PlayerMode_Look = m_PlayerMode.FindAction("Look", throwIfNotFound: true);
         m_PlayerMode_DroneMode = m_PlayerMode.FindAction("Drone Mode", throwIfNotFound: true);
+        m_PlayerMode_Pause = m_PlayerMode.FindAction("Pause", throwIfNotFound: true);
         // DroneMode
         m_DroneMode = asset.FindActionMap("DroneMode", throwIfNotFound: true);
         m_DroneMode_Power = m_DroneMode.FindAction("Power", throwIfNotFound: true);
+        m_DroneMode_Tilt = m_DroneMode.FindAction("Tilt", throwIfNotFound: true);
         m_DroneMode_TiltXAxis = m_DroneMode.FindAction("Tilt X-Axis", throwIfNotFound: true);
         m_DroneMode_TiltZAxis = m_DroneMode.FindAction("Tilt Z-Axis", throwIfNotFound: true);
         m_DroneMode_Camera = m_DroneMode.FindAction("Camera", throwIfNotFound: true);
         m_DroneMode_Freeze = m_DroneMode.FindAction("Freeze", throwIfNotFound: true);
         m_DroneMode_Land = m_DroneMode.FindAction("Land", throwIfNotFound: true);
         m_DroneMode_CameraMode = m_DroneMode.FindAction("Camera Mode", throwIfNotFound: true);
+        m_DroneMode_Pause = m_DroneMode.FindAction("Pause", throwIfNotFound: true);
         // CameraMode
         m_CameraMode = asset.FindActionMap("CameraMode", throwIfNotFound: true);
         m_CameraMode_RotateLeft = m_CameraMode.FindAction("Rotate Left", throwIfNotFound: true);
@@ -545,6 +700,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_CameraMode_ZoomOut = m_CameraMode.FindAction("Zoom Out", throwIfNotFound: true);
         m_CameraMode_TakePicture = m_CameraMode.FindAction("Take Picture", throwIfNotFound: true);
         m_CameraMode_DroneMode = m_CameraMode.FindAction("Drone Mode", throwIfNotFound: true);
+        m_CameraMode_Pause = m_CameraMode.FindAction("Pause", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -552,6 +711,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_PlayerMode.enabled, "This will cause a leak and performance issues, PlayerControls.PlayerMode.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_DroneMode.enabled, "This will cause a leak and performance issues, PlayerControls.DroneMode.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_CameraMode.enabled, "This will cause a leak and performance issues, PlayerControls.CameraMode.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerControls.UI.Disable() has not been called.");
     }
 
     /// <summary>
@@ -628,8 +788,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerMode;
     private List<IPlayerModeActions> m_PlayerModeActionsCallbackInterfaces = new List<IPlayerModeActions>();
     private readonly InputAction m_PlayerMode_Move;
-    private readonly InputAction m_PlayerMode_Camera;
+    private readonly InputAction m_PlayerMode_Look;
     private readonly InputAction m_PlayerMode_DroneMode;
+    private readonly InputAction m_PlayerMode_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerMode".
     /// </summary>
@@ -646,13 +807,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_PlayerMode_Move;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerMode/Camera".
+        /// Provides access to the underlying input action "PlayerMode/Look".
         /// </summary>
-        public InputAction @Camera => m_Wrapper.m_PlayerMode_Camera;
+        public InputAction @Look => m_Wrapper.m_PlayerMode_Look;
         /// <summary>
         /// Provides access to the underlying input action "PlayerMode/DroneMode".
         /// </summary>
         public InputAction @DroneMode => m_Wrapper.m_PlayerMode_DroneMode;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerMode/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_PlayerMode_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -682,12 +847,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Camera.started += instance.OnCamera;
-            @Camera.performed += instance.OnCamera;
-            @Camera.canceled += instance.OnCamera;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
             @DroneMode.started += instance.OnDroneMode;
             @DroneMode.performed += instance.OnDroneMode;
             @DroneMode.canceled += instance.OnDroneMode;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -702,12 +870,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Camera.started -= instance.OnCamera;
-            @Camera.performed -= instance.OnCamera;
-            @Camera.canceled -= instance.OnCamera;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
             @DroneMode.started -= instance.OnDroneMode;
             @DroneMode.performed -= instance.OnDroneMode;
             @DroneMode.canceled -= instance.OnDroneMode;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -746,12 +917,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DroneMode;
     private List<IDroneModeActions> m_DroneModeActionsCallbackInterfaces = new List<IDroneModeActions>();
     private readonly InputAction m_DroneMode_Power;
+    private readonly InputAction m_DroneMode_Tilt;
     private readonly InputAction m_DroneMode_TiltXAxis;
     private readonly InputAction m_DroneMode_TiltZAxis;
     private readonly InputAction m_DroneMode_Camera;
     private readonly InputAction m_DroneMode_Freeze;
     private readonly InputAction m_DroneMode_Land;
     private readonly InputAction m_DroneMode_CameraMode;
+    private readonly InputAction m_DroneMode_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "DroneMode".
     /// </summary>
@@ -767,6 +940,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DroneMode/Power".
         /// </summary>
         public InputAction @Power => m_Wrapper.m_DroneMode_Power;
+        /// <summary>
+        /// Provides access to the underlying input action "DroneMode/Tilt".
+        /// </summary>
+        public InputAction @Tilt => m_Wrapper.m_DroneMode_Tilt;
         /// <summary>
         /// Provides access to the underlying input action "DroneMode/TiltXAxis".
         /// </summary>
@@ -791,6 +968,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DroneMode/CameraMode".
         /// </summary>
         public InputAction @CameraMode => m_Wrapper.m_DroneMode_CameraMode;
+        /// <summary>
+        /// Provides access to the underlying input action "DroneMode/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_DroneMode_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -820,6 +1001,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Power.started += instance.OnPower;
             @Power.performed += instance.OnPower;
             @Power.canceled += instance.OnPower;
+            @Tilt.started += instance.OnTilt;
+            @Tilt.performed += instance.OnTilt;
+            @Tilt.canceled += instance.OnTilt;
             @TiltXAxis.started += instance.OnTiltXAxis;
             @TiltXAxis.performed += instance.OnTiltXAxis;
             @TiltXAxis.canceled += instance.OnTiltXAxis;
@@ -838,6 +1022,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CameraMode.started += instance.OnCameraMode;
             @CameraMode.performed += instance.OnCameraMode;
             @CameraMode.canceled += instance.OnCameraMode;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -852,6 +1039,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Power.started -= instance.OnPower;
             @Power.performed -= instance.OnPower;
             @Power.canceled -= instance.OnPower;
+            @Tilt.started -= instance.OnTilt;
+            @Tilt.performed -= instance.OnTilt;
+            @Tilt.canceled -= instance.OnTilt;
             @TiltXAxis.started -= instance.OnTiltXAxis;
             @TiltXAxis.performed -= instance.OnTiltXAxis;
             @TiltXAxis.canceled -= instance.OnTiltXAxis;
@@ -870,6 +1060,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CameraMode.started -= instance.OnCameraMode;
             @CameraMode.performed -= instance.OnCameraMode;
             @CameraMode.canceled -= instance.OnCameraMode;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -913,6 +1106,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_CameraMode_ZoomOut;
     private readonly InputAction m_CameraMode_TakePicture;
     private readonly InputAction m_CameraMode_DroneMode;
+    private readonly InputAction m_CameraMode_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "CameraMode".
     /// </summary>
@@ -948,6 +1142,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "CameraMode/DroneMode".
         /// </summary>
         public InputAction @DroneMode => m_Wrapper.m_CameraMode_DroneMode;
+        /// <summary>
+        /// Provides access to the underlying input action "CameraMode/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_CameraMode_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -992,6 +1190,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @DroneMode.started += instance.OnDroneMode;
             @DroneMode.performed += instance.OnDroneMode;
             @DroneMode.canceled += instance.OnDroneMode;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -1021,6 +1222,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @DroneMode.started -= instance.OnDroneMode;
             @DroneMode.performed -= instance.OnDroneMode;
             @DroneMode.canceled -= instance.OnDroneMode;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -1054,6 +1258,102 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="CameraModeActions" /> instance referencing this action map.
     /// </summary>
     public CameraModeActions @CameraMode => new CameraModeActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_Pause;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "UI".
+    /// </summary>
+    public struct UIActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "UI/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_UI_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="UIActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="UIActions" />
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="UIActions" />
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UIActions.UnregisterCallbacks(IUIActions)" />.
+        /// </summary>
+        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+        /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="UIActions" /> instance referencing this action map.
+    /// </summary>
+    public UIActions @UI => new UIActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "PlayerMode" which allows adding and removing callbacks.
     /// </summary>
@@ -1069,12 +1369,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Camera" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnCamera(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Drone Mode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1082,6 +1382,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDroneMode(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "DroneMode" which allows adding and removing callbacks.
@@ -1097,6 +1404,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPower(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Tilt" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTilt(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Tilt X-Axis" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1139,6 +1453,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCameraMode(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CameraMode" which allows adding and removing callbacks.
@@ -1189,5 +1510,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDroneMode(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+    /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+    public interface IUIActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
 }

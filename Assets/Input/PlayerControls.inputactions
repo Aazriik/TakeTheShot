@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Camera",
+                    "name": "Look",
                     "type": "Value",
                     "id": "56f7531d-d51d-46c2-bc68-ad9154c0b4af",
                     "expectedControlType": "Vector2",
@@ -28,6 +28,15 @@
                     "name": "Drone Mode",
                     "type": "Button",
                     "id": "18e80d49-a82b-4185-9dbc-84f8a28a2106",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "97e2d44f-dc29-4b16-997f-12ef85352d54",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -97,7 +106,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Camera",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -111,6 +120,17 @@
                     "action": "Drone Mode",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99b11025-e881-4e6f-b141-b867e0871869",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -122,6 +142,15 @@
                     "name": "Power",
                     "type": "Value",
                     "id": "6b1569ba-ed0b-4078-976d-6c1e6548efb1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Tilt",
+                    "type": "Value",
+                    "id": "26157fe3-fbe2-4f8e-91fa-ad859a0898ec",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -176,6 +205,15 @@
                     "name": "Camera Mode",
                     "type": "Button",
                     "id": "e60643c9-3b2b-46f9-beae-5befe1858ce6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "8572c7a2-d72e-4517-b425-0ecebe68e265",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -303,6 +341,72 @@
                     "action": "Camera Mode",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "05d645cd-7693-4fd9-99a0-f5bd0f62141c",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "0e0d9857-bc1e-484f-8c50-b507d8201656",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "44d0fdc1-4ea7-4c6a-97e5-1000944cca03",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "0b81a2cf-bb45-4a8c-b816-6b0d21ba17a2",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "7126c457-472b-4189-ba6e-d2a122c7aa5e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "65e8f394-a7f6-4ca8-95f0-bb033e8f4b2f",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -359,6 +463,15 @@
                     "name": "Drone Mode",
                     "type": "Button",
                     "id": "31bb6c47-9ba6-44a2-8913-5fade43080a3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "8051cbce-181b-420c-96df-b9ff6d560e71",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -429,6 +542,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Drone Mode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1851983-9afc-4d60-8007-51ae7fd8e7eb",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "fbf9435a-7a4a-4bbf-a913-93b439cd2210",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ee42212f-fbc1-42fe-b1d5-082c510cce1b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6dcb1ed0-db20-4335-9c34-ab3b4bc6adfb",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
