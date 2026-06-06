@@ -1535,6 +1535,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319729578}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &330585546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5729710453986077256, guid: 7bb72073f677e4d47b158e9b7aa695d7, type: 3}
+  m_PrefabInstance: {fileID: 6692463965036085332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &347235556
 Mesh:
   m_ObjectHideFlags: 0
@@ -11270,10 +11275,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2688426598532139693, guid: 04f15d3e373316f4a9b93f8e8b1c8d48, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 63a55846b4d6a3941962fe0fa4bd0166, type: 2}
     - target: {fileID: 5187716560673988548, guid: 04f15d3e373316f4a9b93f8e8b1c8d48, type: 3}
       propertyPath: m_Name
       value: Player
@@ -11282,6 +11283,10 @@ PrefabInstance:
       propertyPath: PauseDisplay
       value: 
       objectReference: {fileID: 90902419}
+    - target: {fileID: 6585715571738793233, guid: 04f15d3e373316f4a9b93f8e8b1c8d48, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 330585546}
     - target: {fileID: 8213103261655643080, guid: 04f15d3e373316f4a9b93f8e8b1c8d48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -11926,8 +11931,8 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 161584499}
   - {fileID: 90902420}
-  - {fileID: 6692463965036085332}
   - {fileID: 4127907170676791070}
+  - {fileID: 6692463965036085332}
   - {fileID: 1972607845267317666}
   - {fileID: 8541273167918624807}
   - {fileID: 1796330829}

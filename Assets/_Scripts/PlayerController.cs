@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     // Player Input Actions.
     private InputAction moveAction;
+    private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction droneModeAction;
 
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private InputAction pauseActionPlayer;
     private InputAction pauseActionUI;
 
-    // Component References.
+    // References.
     private CharacterController controller;
 
     // Movement Parameters.
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     // Pause Menu Reference.
     public GameObject PauseDisplay;
+    
 
     #endregion
 
@@ -46,10 +48,13 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
+    // Awake is called when the script instance is being loaded.
     private void Awake()
     {
         // Initialize Player Input Actions.
         moveAction = InputSystem.actions.FindAction("AM_Player/Move");
+        // Initialize Look Action for Player Action Map.
+        lookAction = InputSystem.actions.FindAction("AM_Player/Look");
         // Initialize Jump Action for Player Action Map.
         jumpAction = InputSystem.actions.FindAction("AM_Player/Jump");
         // Initialize Drone Mode Action for Player Action Map.
@@ -63,27 +68,77 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
-        // Toggle Pause Menu.
-        //DisplayPause();
-
         // Movement.
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        controller.Move(move * walkSpeed * Time.deltaTime);
+        Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
+        controller.Move(moveDirection * walkSpeed * Time.deltaTime);
 
         // Jumping and Gravity.
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
+    // OnMove Input Action Callback using Player Input Component with Invoking Unity Events.
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
         //Debug.Log($"Move Input: {moveInput}");
+
+        // Get camera normalized directional vectors.
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
+        forward.y = 0;
+        right.y = 0;
+        forward = forward.normalized;
+        right = right.normalized;
+
+        // Create direction-relative-input vectors.
+        Vector3 forwardRelativeVerticalInput = forward * moveInput.y;
+        Vector3 rightRelativeHorizontalInput = right * moveInput.x;
+
+        // Create camera-relative movement.
+        Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
+        controller.Move(cameraRelativeMovement * walkSpeed * Time.deltaTime);
+
+        // Create and apply camera relative movement.
+        //Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
+        //this.transform.Translate(cameraRelativeMovement, Space.World);
     }
 
+    // OnLook Input Action Callback using Player Input Component with Invoking Unity Events.
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        // Debug.Log($"Look Input: {lookInput}");
+        // Handle player rotation and forward move direction based on look input here.
+
+        // Get camera normalized directional vectors.
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
+        // 0 the Y-Axis to prevent the player moving up/down when the camera is tilted.
+        forward.y = 0;
+        right.y = 0;
+        // Normalize the vectors to ensure consistent move speed in all directions.
+        forward = forward.normalized;
+        right = right.normalized;
+        // Create direction-relative-input vectors.
+        Vector3 forwardRelativeVerticalInput = forward * moveInput.y;
+        Vector3 rightRelativeHorizontalInput = right * moveInput.x;
+        // Create camera-relative movement.
+        Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
+        // Rotate the player to face the direction of movement.
+        if (cameraRelativeMovement.sqrMagnitude > 0.01f)
+        {
+            // Create a target rotation based on the camera-relative movement direction.
+            Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMovement);
+            // Smoothly rotate the player towards the target rotation.
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+    }
+
+    // OnJump Input Action Callback using Player Input Component with Invoking Unity Events.
     public void OnJump(InputAction.CallbackContext context)
     {
         //Debug.Log($"Jumping {context.performed} - Is Grounded: {controller.isGrounded}");
@@ -94,6 +149,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // OnPause Input Action Callback using Player Input Component with Invoking Unity Events.
     public void OnPause(InputAction.CallbackContext context)
     {
         // Check if the Pause action was triggered in the Player Action Map.
@@ -120,27 +176,6 @@ public class PlayerController : MonoBehaviour
                 // Unpause the game by setting time scale back to 1.
                 Time.timeScale = 1f;
             }
-        }
-    }
-
-
-    private void DisplayPause()
-    {
-        // Check if the Pause action was triggered in the Player Action Map.
-        if (pauseActionPlayer.WasPressedThisFrame())
-        {
-            // Activate the Pause Menu and switch input to the UI Action Map.
-            PauseDisplay.SetActive(true);
-            InputActions.FindActionMap("AM_Player").Disable();
-            InputActions.FindActionMap("AM_UI").Enable();
-        }
-        // Check if the Pause action was triggered in the UI Action Map to unpause.
-        else if (pauseActionUI.WasPressedThisFrame())
-        {
-            // Deactivate the Pause Menu and switch input back to the Player Action Map.
-            PauseDisplay.SetActive(false);
-            InputActions.FindActionMap("AM_UI").Disable();
-            InputActions.FindActionMap("AM_Player").Enable();
         }
     }
 }
