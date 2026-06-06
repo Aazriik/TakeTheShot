@@ -18,9 +18,6 @@ public class PlayerController : MonoBehaviour
     private InputAction pauseActionPlayer;
     private InputAction pauseActionUI;
 
-    // References.
-    private CharacterController controller;
-
     // Movement Parameters.
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float jumpHeight = 2f;
@@ -28,9 +25,15 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 velocity;
 
+    // References.
+    private CharacterController controller;
+
     // Pause Menu Reference.
     public GameObject PauseDisplay;
-    
+
+    // Game Object References.
+    [SerializeField] private GameObject dronePrefab;
+
 
     #endregion
 
@@ -146,6 +149,22 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("We are supposed to jump");
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+
+    public void OnDroneMode(InputAction.CallbackContext context)
+    {
+        // Check if the DroneMode action was triggered in the Player Action Map.
+        if (context.performed)
+        {
+            // Switch to Drone Mode by enabling the Drone Action Map and disabling the Player Action Map.
+            InputActions.FindActionMap("AM_Player").Disable();
+            InputActions.FindActionMap("AM_Drone").Enable();
+
+            // Instantiate the Drone Prefab and set it as the Player. This way, the Player can control the Drone using the Drone Action Map. Also smoothly move the Main Camera to the Drone's position and rotation.
+            dronePrefab = Resources.Load<GameObject>("DronePrefab");
+            GameObject droneInstance = Instantiate(dronePrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+            // Smoothly move the Main Camera to the Drone's position and rotation.
         }
     }
 
