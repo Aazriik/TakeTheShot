@@ -160,6 +160,7 @@ MonoBehaviour:
   jumpHeight: 2
   gravity: -9.8
   PauseDisplay: {fileID: 0}
+  dronePrefab: {fileID: 4431866209924152106, guid: 5e324ec06d3f9d44e862391330e78ba5, type: 3}
 --- !u!114 &4488021610543416803
 MonoBehaviour:
   m_ObjectHideFlags: 0
