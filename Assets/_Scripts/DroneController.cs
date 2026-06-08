@@ -9,15 +9,15 @@ public class DroneController : MonoBehaviour
     public InputActionAsset InputActions;
 
     // Movement Parameters.
-    [SerializeField] float speed = 5f;
-    [SerializeField] float powerUp = 0f;
-    [SerializeField] float tempPower;
-    [SerializeField] float gravity = -9.81f;
+    //private float speed = 5f;
+    private float powerUp = 0f;
+    private float gravity = -9.81f;
     private Vector3 tiltInput;
     private Vector3 powerVelocity;
 
     // References.
     private CharacterController controller;
+    private Rigidbody rb;
 
     // Pause Menu Reference.
     public GameObject PauseDisplay;
@@ -43,6 +43,8 @@ public class DroneController : MonoBehaviour
     {
         // Get Component References.
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -85,10 +87,15 @@ public class DroneController : MonoBehaviour
 
     public void OnTilt(InputAction.CallbackContext context)
     {
-        tiltInput = context.ReadValue<Vector3>();
+        tiltInput = context.ReadValue<Vector2>();
+
+
+        rb.AddTorque(tiltInput * 1000 * Time.deltaTime);
+        //tiltInput.x = 
         
         // Apply tiltInput to the Drone's local Rotation.
-        transform.localRotation = Quaternion.Euler(tiltInput);
+        //transform.localRotation = Quaternion.Euler(tiltInput);
+
     }
 
     public void OnPause(InputAction.CallbackContext context)
@@ -97,25 +104,31 @@ public class DroneController : MonoBehaviour
         if (context.performed)
         {
             // Toggle the Pause Menu and switch input between Action Maps.
-            bool isPaused = PauseDisplay.activeSelf;
-            PauseDisplay.SetActive(!isPaused);
-            if (!isPaused)
+            //bool isPaused = PauseDisplay.activeSelf;
+            PauseDisplay.SetActive(!PauseDisplay.activeSelf);
+            if (PauseDisplay.activeSelf)
             {
                 // If we are now paused, disable Player input and enable UI input.
                 InputActions.FindActionMap("AM_Drone").Disable();
                 InputActions.FindActionMap("AM_UI").Enable();
 
+                Debug.Log("is paused.");
+
                 // Pause the game by setting time scale to 0.
                 Time.timeScale = 0f;
+                
             }
-            else
+            else if (!PauseDisplay.activeSelf)
             {
                 // If we are now unpaused, disable UI input and enable Player input.
-                InputActions.FindActionMap("AM_UI").Disable();
                 InputActions.FindActionMap("AM_Drone").Enable();
+                InputActions.FindActionMap("AM_UI").Disable();
+
+                Debug.Log("is unpaused.");
 
                 // Unpause the game by setting time scale back to 1.
                 Time.timeScale = 1f;
+                
             }
         }
     }

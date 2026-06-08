@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 9678
+  m_VersionIndex: 9729
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3310,7 +3310,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1645
+  m_VersionIndex: 1696
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -37406,7 +37406,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1019
+  m_VersionIndex: 1070
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -37764,7 +37764,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1645
+  m_VersionIndex: 1696
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38120,7 +38120,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2582
+  m_VersionIndex: 2633
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38477,7 +38477,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2813
+  m_VersionIndex: 2864
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38834,7 +38834,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3148
+  m_VersionIndex: 3199
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39191,7 +39191,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2813
+  m_VersionIndex: 2864
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39548,7 +39548,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2813
+  m_VersionIndex: 2864
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -73645,7 +73645,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 969
+  m_VersionIndex: 1020
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -76703,7 +76703,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 9678
+  m_VersionIndex: 9729
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -77100,7 +77100,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3015
+  m_VersionIndex: 3066
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -77282,9 +77282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DroneController
   InputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   speed: 5
-  powerUp: 2
-  tempPower: 0
-  gravity: -9.8
+  powerUp: 0
+  gravity: -9.81
   PauseDisplay: {fileID: 0}
 --- !u!114 &2143848471635795690
 MonoBehaviour:
@@ -77724,7 +77723,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2507
+  m_VersionIndex: 2558
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -78080,7 +78079,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2507
+  m_VersionIndex: 2558
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -78437,7 +78436,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2813
+  m_VersionIndex: 2864
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -78795,7 +78794,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2295
+  m_VersionIndex: 2346
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -79151,7 +79150,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2582
+  m_VersionIndex: 2633
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -79507,7 +79506,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1645
+  m_VersionIndex: 1696
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -79863,7 +79862,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2507
+  m_VersionIndex: 2558
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -80223,7 +80222,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2304
+  m_VersionIndex: 2355
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -80579,7 +80578,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2582
+  m_VersionIndex: 2633
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -83635,7 +83634,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 9678
+  m_VersionIndex: 9729
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -83997,7 +83996,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2507
+  m_VersionIndex: 2558
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -87053,7 +87052,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 9678
+  m_VersionIndex: 9729
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -87417,7 +87416,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2295
+  m_VersionIndex: 2346
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -87773,7 +87772,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1645
+  m_VersionIndex: 1696
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

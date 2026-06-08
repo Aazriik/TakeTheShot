@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
             // Toggle the Pause Menu and switch input between Action Maps.
             bool isPaused = PauseDisplay.activeSelf;
             PauseDisplay.SetActive(!isPaused);
-            if (!isPaused)
+            if (isPaused)
             {
                 // If we are now paused, disable Player input and enable UI input.
                 InputActions.FindActionMap("AM_Player").Disable();
