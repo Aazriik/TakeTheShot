@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class DroneController : MonoBehaviour
 {
+
     #region Variables
     // Reference to the Input Action Asset.
     public InputActionAsset InputActions;
@@ -11,7 +12,7 @@ public class DroneController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float powerUp = 0f;
     [SerializeField] float tempPower;
-    [SerializeField] float gravity = -9.8f;
+    [SerializeField] float gravity = -9.81f;
     private Vector3 tiltInput;
     private Vector3 powerVelocity;
 
@@ -52,7 +53,7 @@ public class DroneController : MonoBehaviour
         // PowerVelocity and Gravity.
         if (InputActions.FindAction("AM_Drone/PowerUp").IsPressed())
         {
-            powerUp++; // Increase powerUp over time while the button is held down.
+            powerUp += 0.001f; // Increase powerUp over time while the button is held down.
             //powerUp += Time.deltaTime; // Increase powerUp over time while the button is held down.
             powerVelocity.y += powerUp; // Apply the powerUp to the powerVelocity, allowing for a boost in upward movement.
         }
@@ -61,7 +62,7 @@ public class DroneController : MonoBehaviour
             powerUp = 0f; // Reset powerUp when the button is released.
         }
         powerVelocity.y += gravity * Time.deltaTime;
-        controller.Move(powerVelocity * gravity *Time.deltaTime);
+        controller.Move(powerVelocity * Time.deltaTime);
 
     }
 
@@ -69,20 +70,16 @@ public class DroneController : MonoBehaviour
     {
         powerUp += context.ReadValue<float>() * Time.deltaTime;
         //Debug.Log($"PowerUp {context.performed}");
-        if (context.performed)
-        {
-            // Read the powerUp value from the input context and apply it to the powerVelocity.
-            //powerUp = context.ReadValue<float>();
-            // Keep adding to powerUp while the input is held down
-            //powerUp += context.ReadValue<float>() * Time.deltaTime;
-            // Apply the powerUp to the powerVelocity, allowing for a boost in upward movement.
-            //powerVelocity.y += powerUp * Time.deltaTime;
-        }
-        else
-        {
-            // Reset powerUp when the input is released.
-            //powerUp = 0f;
-        }
+        //if (context.performed)
+        //{
+        //    powerUp += 0.01f; // Increase powerUp over time while the button is held down.
+        //    //powerUp += Time.deltaTime; // Increase powerUp over time while the button is held down.
+        //    powerVelocity.y += powerUp; // Apply the powerUp to the powerVelocity, allowing for a boost in upward movement.
+        //}
+        //else
+        //{
+        //    powerUp = 0f; // Reset powerUp when the button is released.
+        //}
         
     }
 
@@ -92,5 +89,34 @@ public class DroneController : MonoBehaviour
         
         // Apply tiltInput to the Drone's local Rotation.
         transform.localRotation = Quaternion.Euler(tiltInput);
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        // Check if the Pause action was triggered in the Player Action Map.
+        if (context.performed)
+        {
+            // Toggle the Pause Menu and switch input between Action Maps.
+            bool isPaused = PauseDisplay.activeSelf;
+            PauseDisplay.SetActive(!isPaused);
+            if (!isPaused)
+            {
+                // If we are now paused, disable Player input and enable UI input.
+                InputActions.FindActionMap("AM_Drone").Disable();
+                InputActions.FindActionMap("AM_UI").Enable();
+
+                // Pause the game by setting time scale to 0.
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                // If we are now unpaused, disable UI input and enable Player input.
+                InputActions.FindActionMap("AM_UI").Disable();
+                InputActions.FindActionMap("AM_Drone").Enable();
+
+                // Unpause the game by setting time scale back to 1.
+                Time.timeScale = 1f;
+            }
+        }
     }
 }

@@ -77283,6 +77283,7 @@ MonoBehaviour:
   InputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   speed: 5
   powerUp: 2
+  tempPower: 0
   gravity: -9.8
   PauseDisplay: {fileID: 0}
 --- !u!114 &2143848471635795690
@@ -77399,7 +77400,19 @@ MonoBehaviour:
     m_ActionId: 9786b21e-415a-4256-b5a3-aa999ae59118
     m_ActionName: 'AM_UI/Pause[/Keyboard/p]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3766179112109176985}
+        m_TargetAssemblyTypeName: DroneController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4b9f01c5-3bb0-4103-aa67-5f22282f7378
     m_ActionName: 'AM_Drone/Pause[/Keyboard/p]'
   - m_PersistentCalls:

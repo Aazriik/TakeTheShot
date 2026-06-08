@@ -8,16 +8,6 @@ public class PlayerController : MonoBehaviour
     // Reference to the Input Action Asset.
     public InputActionAsset InputActions;
 
-    // Player Input Actions.
-    private InputAction moveAction;
-    private InputAction lookAction;
-    private InputAction jumpAction;
-    private InputAction droneModeAction;
-
-    // Pause Actions for All Action Maps.
-    private InputAction pauseActionPlayer;
-    private InputAction pauseActionUI;
-
     // Movement Parameters.
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float jumpHeight = 2f;
@@ -54,19 +44,6 @@ public class PlayerController : MonoBehaviour
     // Awake is called when the script instance is being loaded.
     private void Awake()
     {
-        // Initialize Player Input Actions.
-        moveAction = InputSystem.actions.FindAction("AM_Player/Move");
-        // Initialize Look Action for Player Action Map.
-        lookAction = InputSystem.actions.FindAction("AM_Player/Look");
-        // Initialize Jump Action for Player Action Map.
-        jumpAction = InputSystem.actions.FindAction("AM_Player/Jump");
-        // Initialize Drone Mode Action for Player Action Map.
-        droneModeAction = InputSystem.actions.FindAction("AM_Player/DroneMode");
-
-        // Initialize Pause Actions for Player and UI Action Maps.
-        pauseActionPlayer = InputSystem.actions.FindAction("AM_Player/Pause");
-        pauseActionUI = InputSystem.actions.FindAction("AM_UI/Pause");
-
         // Get Component References.
         controller = GetComponent<CharacterController>();
     }
