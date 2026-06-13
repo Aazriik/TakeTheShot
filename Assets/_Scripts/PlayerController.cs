@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     // Pause Menu Reference.
     public GameObject PauseDisplay;
+    bool isPaused = false;
 
     // Game Object References.
     [SerializeField] private GameObject dronePrefab;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         // Get Component References.
         controller = GetComponent<CharacterController>();
+        bool isPaused = PauseDisplay.activeInHierarchy;
     }
 
     // Update is called once per frame.
@@ -148,30 +150,32 @@ public class PlayerController : MonoBehaviour
     // OnPause Input Action Callback using Player Input Component with Invoking Unity Events.
     public void OnPause(InputAction.CallbackContext context)
     {
-        // Check if the Pause action was triggered in the Player Action Map.
-        if (context.performed)
+        // Check if the game is Not Paused.
+        if (!isPaused)
         {
-            // Toggle the Pause Menu and switch input between Action Maps.
-            bool isPaused = PauseDisplay.activeSelf;
-            PauseDisplay.SetActive(!isPaused);
-            if (isPaused)
-            {
-                // If we are now paused, disable Player input and enable UI input.
-                InputActions.FindActionMap("AM_Player").Disable();
-                InputActions.FindActionMap("AM_UI").Enable();
-
-                // Pause the game by setting time scale to 0.
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                // If we are now unpaused, disable UI input and enable Player input.
-                InputActions.FindActionMap("AM_UI").Disable();
-                InputActions.FindActionMap("AM_Player").Enable();
-
-                // Unpause the game by setting time scale back to 1.
-                Time.timeScale = 1f;
-            }
+            // Toggle the Pause Menu ON.
+            PauseDisplay.SetActive(true);
+            // Pause the game by setting time scale to 0.
+            Time.timeScale = 0f;
+            // If we are now paused, disable PLAYER input and enable UI input.
+            InputActions.FindActionMap("AM_Player").Disable();
+            InputActions.FindActionMap("AM_UI").Enable();
+            // Set isPaused to the PauseDisplay active state.
+            isPaused = PauseDisplay.activeInHierarchy;
+            Debug.Log("Is Paused? " + isPaused);
+        }
+        else
+        {
+            // Toggle the Pause Menu OFF.
+            PauseDisplay.SetActive(false);
+            // Unpause the game by setting time scale back to 1.
+            Time.timeScale = 1f;
+            // If we are now unpaused, disable UI input and enable PLAYER input.
+            InputActions.FindActionMap("AM_UI").Disable();
+            InputActions.FindActionMap("AM_Player").Enable();
+            // Set isPaused to the PauseDisplay active state.
+            isPaused = PauseDisplay.activeInHierarchy;
+            Debug.Log("Is Paused? " + isPaused);
         }
     }
 }

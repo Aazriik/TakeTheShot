@@ -11,16 +11,18 @@ public class DroneController : MonoBehaviour
     // Movement Parameters.
     //private float speed = 5f;
     private float powerUp = 0f;
+    private float powerMax = 30f;
     private float gravity = -9.81f;
     private Vector3 tiltInput;
     private Vector3 powerVelocity;
+    private Vector3 direction;
 
     // References.
-    private CharacterController controller;
     private Rigidbody rb;
 
     // Pause Menu Reference.
     public GameObject PauseDisplay;
+    bool isPaused = false;
 
     #endregion
 
@@ -42,8 +44,8 @@ public class DroneController : MonoBehaviour
     private void Awake()
     {
         // Get Component References.
-        controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
+        bool isPaused = PauseDisplay.activeInHierarchy;
 
     }
 
@@ -51,38 +53,45 @@ public class DroneController : MonoBehaviour
     void Update()
     {
         // Tilt.
+        rb.rotation = Quaternion.Euler(rb.linearVelocity.y, rb.linearVelocity.x, rb.linearVelocity.z);
 
+        #region Power and Gravity
         // PowerVelocity and Gravity.
         if (InputActions.FindAction("AM_Drone/PowerUp").IsPressed())
         {
-            powerUp += 0.001f; // Increase powerUp over time while the button is held down.
-            //powerUp += Time.deltaTime; // Increase powerUp over time while the button is held down.
-            powerVelocity.y += powerUp; // Apply the powerUp to the powerVelocity, allowing for a boost in upward movement.
+            if (powerUp < powerMax)
+            {
+                powerUp += 0.3f;
+            }
+            if (powerUp > powerMax)
+            {
+                powerUp = powerMax;
+            }
+
+            rb.linearVelocity += Vector3.up * powerUp * Time.deltaTime;
+            //Debug.Log("Linear Velocity is set at " + rb.linearVelocity);
         }
         else
         {
-            powerUp = 0f; // Reset powerUp when the button is released.
+            powerUp += -0.05f;
+            //Debug.Log("Linear Velocity is set at " + rb.linearVelocity);
         }
-        powerVelocity.y += gravity * Time.deltaTime;
-        controller.Move(powerVelocity * Time.deltaTime);
+
+        if (powerUp < 0f)
+        {
+            powerUp = 0f;
+        }
+
+        rb.linearVelocity += Vector3.up * gravity * Time.deltaTime;
+
+        #endregion
+
 
     }
 
     public void OnPowerUp(InputAction.CallbackContext context)
     {
         powerUp += context.ReadValue<float>() * Time.deltaTime;
-        //Debug.Log($"PowerUp {context.performed}");
-        //if (context.performed)
-        //{
-        //    powerUp += 0.01f; // Increase powerUp over time while the button is held down.
-        //    //powerUp += Time.deltaTime; // Increase powerUp over time while the button is held down.
-        //    powerVelocity.y += powerUp; // Apply the powerUp to the powerVelocity, allowing for a boost in upward movement.
-        //}
-        //else
-        //{
-        //    powerUp = 0f; // Reset powerUp when the button is released.
-        //}
-        
     }
 
     public void OnTilt(InputAction.CallbackContext context)
@@ -90,46 +99,56 @@ public class DroneController : MonoBehaviour
         tiltInput = context.ReadValue<Vector2>();
 
 
-        rb.AddTorque(tiltInput * 1000 * Time.deltaTime);
+        rb.AddTorque(tiltInput.x, tiltInput.y, tiltInput.z);
         //tiltInput.x = 
         
         // Apply tiltInput to the Drone's local Rotation.
         //transform.localRotation = Quaternion.Euler(tiltInput);
-
+        //transform.forward
     }
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        // Check if the Pause action was triggered in the Player Action Map.
-        if (context.performed)
+        // Check if the game is Not Paused.
+        if (!isPaused)
         {
-            // Toggle the Pause Menu and switch input between Action Maps.
-            //bool isPaused = PauseDisplay.activeSelf;
-            PauseDisplay.SetActive(!PauseDisplay.activeSelf);
-            if (PauseDisplay.activeSelf)
-            {
-                // If we are now paused, disable Player input and enable UI input.
-                InputActions.FindActionMap("AM_Drone").Disable();
-                InputActions.FindActionMap("AM_UI").Enable();
+            // Toggle the Pause Menu ON.
+            PauseDisplay.SetActive(true);
+            // Pause the game by setting time scale to 0.
+            Time.timeScale = 0f;
+            // If we are now paused, disable DRONE input and enable UI input.
+            InputActions.FindActionMap("AM_Drone").Disable();
+            InputActions.FindActionMap("AM_UI").Enable();
+            // Set isPaused to the PauseDisplay active state.
+            isPaused = PauseDisplay.activeInHierarchy;
+            Debug.Log("Is Paused? " + isPaused);
+        }
+        else
+        {
+            // Toggle the Pause Menu OFF.
+            PauseDisplay.SetActive(false);
+            // Unpause the game by setting time scale back to 1.
+            Time.timeScale = 1f;
+            // If we are now unpaused, disable UI input and enable DRONE input.
+            InputActions.FindActionMap("AM_UI").Disable();
+            InputActions.FindActionMap("AM_Drone").Enable();
+            // Set isPaused to the PauseDisplay active state.
+            isPaused = PauseDisplay.activeInHierarchy;
+            Debug.Log("Is Paused? " + isPaused);
+        }
+    }
 
-                Debug.Log("is paused.");
+    public void OnFreeze(InputAction.CallbackContext context)
+    {
+        bool isFrozen = rb.isKinematic;
 
-                // Pause the game by setting time scale to 0.
-                Time.timeScale = 0f;
-                
-            }
-            else if (!PauseDisplay.activeSelf)
-            {
-                // If we are now unpaused, disable UI input and enable Player input.
-                InputActions.FindActionMap("AM_Drone").Enable();
-                InputActions.FindActionMap("AM_UI").Disable();
-
-                Debug.Log("is unpaused.");
-
-                // Unpause the game by setting time scale back to 1.
-                Time.timeScale = 1f;
-                
-            }
+        if (!isFrozen)
+        {
+            rb.isKinematic = true;
+        }
+        else
+        {
+            rb.isKinematic = false;
         }
     }
 }
