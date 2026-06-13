@@ -7,20 +7,44 @@ public class DroneController : MonoBehaviour
     #region Variables
     // Reference to the Input Action Asset.
     public InputActionAsset InputActions;
+    
+    // Blade Controllers.
+    public BladesController FR_Blade;
+    public BladesController FL_Blade;
+    public BladesController BR_Blade;
+    public BladesController BL_Blade;
 
-    // Movement Parameters.
-    //private float speed = 5f;
-    private float powerUp = 0f;
-    private float powerMax = 30f;
-    private float gravity = -9.81f;
-    private Vector3 tiltInput;
-    private Vector3 powerVelocity;
-    private Vector3 direction;
+    // Engine Power.
+    private float enginePower;
+    public float EnginePower
+    {
+        get { return enginePower; }
+        set
+        {
+            FR_Blade.BladeSpeed = value * 500;
+            FL_Blade.BladeSpeed = value * 500;
+            BR_Blade.BladeSpeed = value * 500;
+            BL_Blade.BladeSpeed = value * 500;
+            enginePower = value;
+        }
+    }
 
-    // References.
+    // Effective Height determines how far the Drone will fly in the UP direction.
+    public float effectiveHeight;
+    // Engine Lift is Throttle Power.
+    public float EngineLift = 0.0075f;
+    // Forward Movement Speed.
+    public float ForwardForce;
+    // Backward Movement Speed.
+    public float BackwardForce;
+
+    // Vector 2 to Handle Movement.
+    private Vector2 movement = Vector2.zero;
+
+    // Component References.
     private Rigidbody rb;
 
-    // Pause Menu Reference.
+    // Pause Menu References.
     public GameObject PauseDisplay;
     bool isPaused = false;
 
@@ -40,8 +64,8 @@ public class DroneController : MonoBehaviour
     #endregion
 
 
-    // Awake is called when the script instance is being loaded.
-    private void Awake()
+    // Start is called before the first frame update.
+    void Start()
     {
         // Get Component References.
         rb = GetComponent<Rigidbody>();
@@ -49,63 +73,179 @@ public class DroneController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
-        // Tilt.
-        rb.rotation = Quaternion.Euler(rb.linearVelocity.y, rb.linearVelocity.x, rb.linearVelocity.z);
-
-        #region Power and Gravity
-        // PowerVelocity and Gravity.
-        if (InputActions.FindAction("AM_Drone/PowerUp").IsPressed())
-        {
-            if (powerUp < powerMax)
-            {
-                powerUp += 0.3f;
-            }
-            if (powerUp > powerMax)
-            {
-                powerUp = powerMax;
-            }
-
-            rb.linearVelocity += Vector3.up * powerUp * Time.deltaTime;
-            //Debug.Log("Linear Velocity is set at " + rb.linearVelocity);
-        }
-        else
-        {
-            powerUp += -0.05f;
-            //Debug.Log("Linear Velocity is set at " + rb.linearVelocity);
-        }
-
-        if (powerUp < 0f)
-        {
-            powerUp = 0f;
-        }
-
-        rb.linearVelocity += Vector3.up * gravity * Time.deltaTime;
-
-        #endregion
-
-
+        HandleInputs();
     }
 
-    public void OnPowerUp(InputAction.CallbackContext context)
+    // This function is called every fixed frame, if the MonoBehaviour is enabled.
+    protected void FixedUpdate()
     {
-        powerUp += context.ReadValue<float>() * Time.deltaTime;
+        DroneHover();
+        DroneMovements();
     }
 
-    public void OnTilt(InputAction.CallbackContext context)
+    // Function to handle all inputs in the Update Method.
+    void HandleInputs()
     {
-        tiltInput = context.ReadValue<Vector2>();
+        // Movement (Horizontal and Vertical).
+        movement.x = Input.GetAxis("Horizontal");
+        movement.y = Input.GetAxis("Vertical");
+        // Move Forward.
+        if (InputActions.FindAction("AM_Drone/MoveForward").IsPressed())
+        {
+            
+        }
 
+        // Move Backward.
+        if (InputActions.FindAction("AM_Drone/MoveBackward").IsPressed())
+        {
 
-        rb.AddTorque(tiltInput.x, tiltInput.y, tiltInput.z);
-        //tiltInput.x = 
+        }
+
+        // Move Left.
+        if (InputActions.FindAction("AM_Drone/MoveLeft").IsPressed())
+        {
+            
+        }
+
+        // Move Right.
+        if (InputActions.FindAction("AM_Drone/MoveRight").IsPressed())
+        {
+
+        }
+
+        // Descend.
+        if (InputActions.FindAction("AM_Drone/Descend").IsPressed())
+        {
+            EnginePower -= EngineLift;
+
+            if (EnginePower < 0) EnginePower = 0;
+        }
+
+        // Ascend.
+        if (InputActions.FindAction("AM_Drone/Ascend").IsPressed())
+        {
+            EnginePower += EngineLift;
+        }
+    }
+
+    // Ascend with Upward Force using Rigidbody while factoring in mass.
+    void DroneHover()
+    {
+        float upForce = 1 - Mathf.Clamp(rb.transform.position.y / effectiveHeight, 0, 1);
+        upForce = Mathf.Lerp(0, EnginePower, upForce) * rb.mass;
+        rb.AddRelativeForce(Vector3.up * upForce);
         
-        // Apply tiltInput to the Drone's local Rotation.
-        //transform.localRotation = Quaternion.Euler(tiltInput);
-        //transform.forward
     }
+
+    void DroneMovements()
+    {
+        // Move Forward Z-Axis.
+        if (InputActions.FindAction("AM_Drone/MoveForward").IsPressed())
+        {
+            rb.AddRelativeForce(Vector3.forward * Mathf.Max(0f, movement.y * ForwardForce * rb.mass));
+        }
+        // Move Backward Z-Axis.
+        else if (InputActions.FindAction("AM_Drone/MoveBackward").IsPressed())
+        {
+            rb.AddRelativeForce(Vector3.back * Mathf.Max(0f, movement.y * BackwardForce * rb.mass));
+        }
+    }
+
+    public void OnAscend(InputAction.CallbackContext context)
+    {
+        movement.y += context.ReadValue<float>() * Time.deltaTime;
+    }
+
+    public void OnDescend(InputAction.CallbackContext context)
+    {
+        movement.y -= context.ReadValue<float>() * Time.deltaTime;
+    }
+
+    public void OnMoveForward(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    public void OnMoveBackward(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnMoveLeft(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnMoveRight(InputAction.CallbackContext context)
+    {
+
+    }
+
+
+    #region First Draft
+
+    // Update is called once per frame
+    //void Update()
+    //{
+    //    // Tilt.
+    //    rb.rotation = Quaternion.Euler(rb.linearVelocity.y, rb.linearVelocity.x, rb.linearVelocity.z);
+
+    //    #region Power and Gravity
+    //    // PowerVelocity and Gravity.
+    //    if (InputActions.FindAction("AM_Drone/PowerUp").IsPressed())
+    //    {
+    //        if (powerUp < powerMax)
+    //        {
+    //            powerUp += 0.3f;
+    //        }
+    //        if (powerUp > powerMax)
+    //        {
+    //            powerUp = powerMax;
+    //        }
+
+    //        rb.linearVelocity += Vector3.up * powerUp * Time.deltaTime;
+    //        //Debug.Log("Linear Velocity is set at " + rb.linearVelocity);
+    //    }
+    //    else
+    //    {
+    //        powerUp += -0.05f;
+    //        //Debug.Log("Linear Velocity is set at " + rb.linearVelocity);
+    //    }
+
+    //    if (powerUp < 0f)
+    //    {
+    //        powerUp = 0f;
+    //    }
+
+    //    rb.linearVelocity += Vector3.up * gravity * Time.deltaTime;
+
+    //    #endregion
+
+
+    //}
+
+    //public void OnPowerUp(InputAction.CallbackContext context)
+    //{
+    //    powerUp += context.ReadValue<float>() * Time.deltaTime;
+    //}
+
+    //public void OnTilt(InputAction.CallbackContext context)
+    //{
+    //    tiltInput = context.ReadValue<Vector2>();
+
+
+    //    rb.AddTorque(tiltInput.x, tiltInput.y, tiltInput.z);
+    //    //tiltInput.x = 
+
+    //    // Apply tiltInput to the Drone's local Rotation.
+    //    //transform.localRotation = Quaternion.Euler(tiltInput);
+    //    //transform.forward
+    //}
+
+    #endregion
 
     public void OnPause(InputAction.CallbackContext context)
     {
