@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
+using UnityEngine.Events;
 
 public class DroneController : MonoBehaviour
 {
@@ -7,7 +9,8 @@ public class DroneController : MonoBehaviour
     #region Variables
     // Reference to the Input Action Asset.
     public InputActionAsset InputActions;
-    
+
+    #region EnginePower & Blades
     // Blade Controllers.
     public BladesController FR_Blade;
     public BladesController FL_Blade;
@@ -28,34 +31,63 @@ public class DroneController : MonoBehaviour
             enginePower = value;
         }
     }
+    
 
     // Effective Height determines how far the Drone will fly in the UP direction.
     public float effectiveHeight;
     // Engine Lift is Throttle Power.
-    public float engineLift = 0.0075f;
-    // Forward Movement Speed.
+    public float engineLift = 0.02f;
+    // Engine Start/Stop Speed.
+    public float engineStartSpeed;
+    // Engine Start Delay.
+    public float engineStartDelay;
+    #endregion
+
+    #region Movement & Tilt
+    // Movement and Tilt.
+    private Vector2 movement = Vector2.zero;
+    private Vector2 tilting = Vector2.zero;
+
+    // Movement Speed. Forward/Backward.
     public float forwardForce;
-    // Backward Movement Speed.
     public float backwardForce;
 
     // Turning.
     public float turnForce;
-    private float turnForceHelper;
+    private float turnForceHelper = 1.5f;
     private float turning = 0f;
 
-    // Vector 2 to Handle Movement.
-    private Vector2 movement = Vector2.zero;
+    // Tilting.
+    public float forwardTiltForce;
+    public float turnTiltForce;    
+
+    // Hover and Tilt Counters.
+    public float tiltCounter = 22f;
+    public float hoverCounter = 13f;
+    #endregion
+
+
+    // Gravity.
+    public float gravity = 100f;
 
     // Ground Check.
     public LayerMask groundLayer;
     private float distanceToGround;
     public bool isGrounded = true;
 
+
+    // Unity Events.
+    bool isFirstTime;
+    public UnityEvent onTakeOff;
+    public UnityEvent onLand;
+
+
     // Component References.
     private Rigidbody rb;
 
-    // Pause Menu References.
-    public GameObject pauseDisplay;
+
+    // Menu References.
+    public GameObject pauseMenu;
     bool isPaused = false;
 
     #endregion
@@ -73,13 +105,13 @@ public class DroneController : MonoBehaviour
 
     #endregion
 
-
+    #region Start & Updates
     // Start is called before the first frame update.
     void Start()
     {
         // Get Component References.
         rb = GetComponent<Rigidbody>();
-        bool isPaused = pauseDisplay.activeInHierarchy;
+        bool isPaused = pauseMenu.activeInHierarchy;
 
     }
 
@@ -88,6 +120,8 @@ public class DroneController : MonoBehaviour
     {
         HandleGroundCheck();
         HandleInputs();
+        HandleEngine();
+        HandleInvokes();
     }
 
     // This function is called every fixed frame, if the MonoBehaviour is enabled.
@@ -95,64 +129,70 @@ public class DroneController : MonoBehaviour
     {
         DroneHover();
         DroneMovements();
+        DroneTilting();
     }
+    #endregion
 
-    // Function to handle all inputs in the Update Method.
+    // Update Method.
     void HandleInputs()
     {
         if (!isGrounded)
         {
-            //Debug.Log("Is NOT Grounded");
-
             // Movement (Horizontal and Vertical).
             movement.x = Input.GetAxis("Horizontal");
             movement.y = Input.GetAxis("Vertical");
-
-            #region Movement Input Actions
-            // Move Forward.
-            if (InputActions.FindAction("AM_Drone/MoveForward").IsPressed())
-            {
-
-            }
-
-            // Move Backward.
-            if (InputActions.FindAction("AM_Drone/MoveBackward").IsPressed())
-            {
-
-            }
-
-            // Move Left.
-            if (InputActions.FindAction("AM_Drone/MoveLeft").IsPressed())
-            {
-
-            }
-
-            // Move Right.
-            if (InputActions.FindAction("AM_Drone/MoveRight").IsPressed())
-            {
-
-            }
-
-            #endregion
         }
 
         // Ascend.
         if (InputActions.FindAction("AM_Drone/Ascend").IsPressed())
         {
             EnginePower += engineLift;
+            // Add Anti-Gravity to the Drone while Ascending for Faster Ascent.
+            rb.AddRelativeForce(Vector3.up * gravity);
         }
+        // Stop Decreasing Height when tilting.
+        else if (Input.GetAxis("Vertical") > 0 && !isGrounded)
+        {
+            EnginePower = Mathf.Lerp(EnginePower, tiltCounter, 0.003f);
+        }
+        // When Ascend is released, hover rather than continuously going up.
+        // This also works for the Descend aswell due to using the Input.GetAxis("Vertical") in the old input system.
+        else if (Input.GetAxis("Vertical") < 0.5f && !isGrounded)
+        {
+            EnginePower = Mathf.Lerp(EnginePower, hoverCounter, 0.003f);
+        }
+
 
         // Descend.
         if (InputActions.FindAction("AM_Drone/Descend").IsPressed())
         {
             EnginePower -= engineLift;
-
+            //Add Gravity to the Drone while Descending for Faster Descent.
+            rb.AddRelativeForce(Vector3.down * gravity);
+            // Reset EnginePower to 0 if < 0.
             if (EnginePower < 0) EnginePower = 0;
         }
-        //Debug.Log("Is Grounded");
 
     }
 
+
+    // Update Method. Handle Brownian Motion TakeOff and Land Events.
+    void HandleInvokes()
+    {
+        if (!isGrounded && isFirstTime)
+        {
+            onTakeOff.Invoke();
+            isFirstTime = false;
+        }
+        else if (isGrounded && !isFirstTime)
+        {
+            onLand.Invoke();
+            isFirstTime = true;
+        }
+    }
+
+
+    // Update Method. Ground Check.
     void HandleGroundCheck()
     {
         // Create Raycast shooting downward.
@@ -172,23 +212,29 @@ public class DroneController : MonoBehaviour
 
     }
 
-    // Ascend with Upward Force using Rigidbody while factoring in mass.
-    void DroneHover()
-    {
-        if (InputActions.FindAction("AM_Drone/Ascend").IsPressed())
-        {
-            //EnginePower += engineLift;
 
-            float upForce = 1 - Mathf.Clamp(rb.transform.position.y / effectiveHeight, 0, 1);
-            upForce = Mathf.Lerp(0, EnginePower, upForce) * rb.mass;
-            rb.AddRelativeForce(Vector3.up * upForce);
-        }
-        //float upForce = 1 - Mathf.Clamp(rb.transform.position.y / effectiveHeight, 0, 1);
-        //upForce = Mathf.Lerp(0, EnginePower, upForce) * rb.mass;
-        //rb.AddRelativeForce(Vector3.up * upForce);
-        
+
+    // Update Method. Start/Stop Engine.
+    void HandleEngine()
+    {
+        // If isGrounded and you Press StartEngine, START ENGINE.
+        if (InputActions.FindAction("AM_Drone/StartEngine").IsPressed() && isGrounded) StartEngine();
+        // If isGrounded and you Press StopEngine, STOP ENGINE.
+        else if (InputActions.FindAction("AM_Drone/StopEngine").IsPressed() && isGrounded) StopEngine();
     }
 
+
+
+    // FixedUpdate. Ascend with Upward Force using Rigidbody while factoring in mass.
+    void DroneHover()
+    {
+        float upForce = 1 - Mathf.Clamp(rb.transform.position.y / effectiveHeight, 0, 1);
+        upForce = Mathf.Lerp(0, EnginePower, upForce) * rb.mass;
+        rb.AddRelativeForce(Vector3.up * upForce);
+    }
+
+
+    // FixedUpdate. Move Forward/Backward, Rotate Left/Right.
     void DroneMovements()
     {
         // Move Forward Z-Axis.
@@ -219,6 +265,43 @@ public class DroneController : MonoBehaviour
         }
     }
 
+
+    // FixedUpdate. Tilt in the direction the Drone moves.
+    void DroneTilting()
+    {
+        tilting.y = Mathf.Lerp(tilting.y, movement.y * forwardTiltForce, Time.deltaTime);
+        tilting.x = Mathf.Lerp(tilting.x, movement.x * turnTiltForce, Time.deltaTime);
+        rb.transform.localRotation = Quaternion.Euler(tilting.y, rb.transform.localEulerAngles.y, -tilting.x);
+    }
+
+
+
+    #region Start/Stop Engine
+    public void StartEngine()
+    {
+        DOTween.To(Starting, 0, 8.0f, engineStartSpeed);
+    }
+
+    void Starting(float value)
+    {
+        EnginePower = value;
+    }
+
+    public void StopEngine()
+    {
+        DOTween.To(Stopping, EnginePower, 0.0f, engineStartSpeed);
+    }
+
+    void Stopping(float value)
+    {
+        EnginePower = value;
+    }
+    #endregion
+
+
+
+    #region InputAction Callbacks
+    // InputActions
     public void OnAscend(InputAction.CallbackContext context)
     {
         movement.y += context.ReadValue<float>() * Time.deltaTime;
@@ -247,6 +330,16 @@ public class DroneController : MonoBehaviour
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
         movement.x += context.ReadValue<float>() * Time.fixedDeltaTime;
+    }
+
+    public void OnStartEngine(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnStopEngine(InputAction.CallbackContext context)
+    {
+
     }
 
     #region First Draft
@@ -317,27 +410,27 @@ public class DroneController : MonoBehaviour
         if (!isPaused)
         {
             // Toggle the Pause Menu ON.
-            pauseDisplay.SetActive(true);
+            pauseMenu.SetActive(true);
             // Pause the game by setting time scale to 0.
             Time.timeScale = 0f;
             // If we are now paused, disable DRONE input and enable UI input.
             InputActions.FindActionMap("AM_Drone").Disable();
             InputActions.FindActionMap("AM_UI").Enable();
             // Set isPaused to the PauseDisplay active state.
-            isPaused = pauseDisplay.activeInHierarchy;
+            isPaused = pauseMenu.activeInHierarchy;
             Debug.Log("Is Paused? " + isPaused);
         }
         else
         {
             // Toggle the Pause Menu OFF.
-            pauseDisplay.SetActive(false);
+            pauseMenu.SetActive(false);
             // Unpause the game by setting time scale back to 1.
             Time.timeScale = 1f;
             // If we are now unpaused, disable UI input and enable DRONE input.
             InputActions.FindActionMap("AM_UI").Disable();
             InputActions.FindActionMap("AM_Drone").Enable();
             // Set isPaused to the PauseDisplay active state.
-            isPaused = pauseDisplay.activeInHierarchy;
+            isPaused = pauseMenu.activeInHierarchy;
             Debug.Log("Is Paused? " + isPaused);
         }
     }
@@ -355,4 +448,6 @@ public class DroneController : MonoBehaviour
             rb.isKinematic = false;
         }
     }
+
+    #endregion
 }
